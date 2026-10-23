@@ -284,9 +284,7 @@ OrtStatus* OpenVINOEpPluginFactory::GetSupportedPhysicalDevices(const OrtHardwar
 
     // For meta devices, add the meta device type to the metadata
     if (IsMetaDeviceFactory()) {
-      ep_metadata.Add(std::string(key_ov_meta_device).data(), device_type_.c_str());
-    } else {
-      ep_metadata.Add(kOrtEpDevice_EpMetadataKey_GqaPreferredValueLayout, ep_gqa_value_tensor_layout_preference.at(device.Type()));
+      ep_metadata.Add(ov_meta_device_key_, device_type_.c_str());
     }
 
     // Add all read-only device properties to the metadata
@@ -471,14 +469,18 @@ OrtStatus* OpenVINOEpPluginFactory::CreateEp(const OrtHardwareDevice* const* dev
   auto ov_ep = std::make_unique<OpenVINOEpPlugin>(ep_name_, std::move(options), *logger, ov_device, ov_core_, onnx_fe_manager_, memory_infos);
 
   OrtVersionGate<28>(ov_ep.get(), [&](auto ov_ep) {
-    Ort::Experimental::EpContextConfig cfg{Ort::ConstSessionOptions{session_options}};
-    OrtWriteNamedBufferFunc write_fn = nullptr;
-    void* write_state = nullptr;
-    cfg.GetWriteFunc(write_fn, write_state);
-    OrtReadNamedBufferFunc read_fn = nullptr;
-    void* read_state = nullptr;
-    cfg.GetReadFunc(read_fn, read_state);
-    ov_ep->SetRawEpContextDataCallbacks(write_fn, write_state, read_fn, read_state);
+    try {
+      Ort::Experimental::EpContextConfig cfg{Ort::ConstSessionOptions{session_options}};
+      OrtWriteNamedBufferFunc write_fn = nullptr;
+      void* write_state = nullptr;
+      cfg.GetWriteFunc(write_fn, write_state);
+      OrtReadNamedBufferFunc read_fn = nullptr;
+      void* read_state = nullptr;
+      cfg.GetReadFunc(read_fn, read_state);
+      ov_ep->SetRawEpContextDataCallbacks(write_fn, write_state, read_fn, read_state);
+    } catch (const Ort::Exception& e) {
+      ORT_CXX_LOGF(ort_logger, ORT_LOGGING_LEVEL_INFO, "Could not set raw EP context data callbacks: %s", e.what());
+    }
   });
 
   *ep = ov_ep.release();

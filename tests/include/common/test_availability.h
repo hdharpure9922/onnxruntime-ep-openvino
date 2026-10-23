@@ -5,7 +5,7 @@
 #pragma once
 
 #include <algorithm>
-#include <onnxruntime/onnxruntime_cxx_api.h>
+#include <onnxruntime_cxx_api.h>
 #include <string>
 #include <string_view>
 #include <vector>

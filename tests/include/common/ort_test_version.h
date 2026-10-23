@@ -5,7 +5,7 @@
 #pragma once
 
 #include <gtest/gtest.h>
-#include <onnxruntime/onnxruntime_c_api.h>
+#include <onnxruntime_c_api.h>
 
 #include <ostream>
 

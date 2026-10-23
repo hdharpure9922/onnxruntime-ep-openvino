@@ -4,7 +4,6 @@
 
 #include "ortAbiTestFixture.h"
 #include "ort_test_version.h"
-#include "ov_test_version.h"
 
 #include <algorithm>
 #include <cmath>
@@ -145,13 +144,6 @@ static std::vector<float> run_step(
 struct ort_abi_stateful_inference
     : public ortAbiTestFixture,
       public testing::WithParamInterface<std::tuple<std::string, std::string>> {
-  void SetUp() override {
-    ortAbiTestFixture::SetUp();
-    if (std::get<0>(GetParam()) == "NPU" && OvTestVersion::built() >= OvTestVersion{2026, 5}) {
-      GTEST_SKIP() << "NPU stateful tests are disabled with OpenVINO 2026.5";
-    }
-  }
-
   std::vector<std::string> additional_required_devices() const override { return {std::get<0>(GetParam())}; }
 };
 
@@ -315,14 +307,7 @@ INSTANTIATE_TEST_SUITE_P(
 
 ///////////////////////////////////////////////////////////////////////
 // Model-specific tests — only applicable to the ONNX source model.
-struct ort_abi_stateful_compute : public ortAbiSingleDeviceTestFixture {
-  void SetUp() override {
-    ortAbiSingleDeviceTestFixture::SetUp();
-    if (GetParam() == "NPU" && OvTestVersion::built() >= OvTestVersion{2026, 5}) {
-      GTEST_SKIP() << "NPU stateful tests are disabled with OpenVINO 2026.5";
-    }
-  }
-};
+struct ort_abi_stateful_compute : public ortAbiSingleDeviceTestFixture {};
 
 ///////////////////////////////////////////////////////////////////////
 // Test 6: kvcache_rewind resets OV internal state; a subsequent decode step

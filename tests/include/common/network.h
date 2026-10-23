@@ -6,7 +6,7 @@
 
 #include "ort_helper.h"
 #include "path_utils.h"
-#include <onnxruntime/onnxruntime_session_options_config_keys.h>
+#include <onnxruntime_session_options_config_keys.h>
 #include <cstdint>
 #include <span>
 

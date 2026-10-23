@@ -68,13 +68,13 @@ typedef MEGABYTE GIGABYTE[1024];
 #include "pipeline.h"
 #include "env.h"
 
-#include <onnxruntime/cpu_provider_factory.h>
-#include <onnxruntime/onnxruntime_cxx_api.h>
-#include <onnxruntime/onnxruntime_session_options_config_keys.h>
-#include <onnxruntime/onnxruntime_env_config_keys.h>
-#include <onnxruntime/onnxruntime_ep_device_ep_metadata_keys.h>
+#include <cpu_provider_factory.h>
+#include <onnxruntime_cxx_api.h>
+#include <onnxruntime_session_options_config_keys.h>
+#include <onnxruntime_env_config_keys.h>
+#include <onnxruntime_ep_device_ep_metadata_keys.h>
 
-#include <onnxruntime/onnxruntime_experimental_cxx_api.h>
+#include <onnxruntime_experimental_cxx_api.h>
 
 extern Ort::Env env_;
 

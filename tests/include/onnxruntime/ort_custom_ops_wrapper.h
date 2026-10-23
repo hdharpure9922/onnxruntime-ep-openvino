@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <onnxruntime/onnxruntime_lite_custom_op.h>
+#include <onnxruntime_lite_custom_op.h>
 
 namespace ovep_tests {
 namespace onnxruntime {

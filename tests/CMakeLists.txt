@@ -37,7 +37,7 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include/onnxruntime
     ${CMAKE_CURRENT_SOURCE_DIR}/include/onnxruntime-abi
     ${CMAKE_CURRENT_SOURCE_DIR}/../plugin
-    ${ONNXRUNTIME_ROOT_DIR}/include)
+    ${ONNXRUNTIME_ROOT_DIR}/include/onnxruntime)
 
 target_link_directories(
     ${TARGET_NAME} PRIVATE

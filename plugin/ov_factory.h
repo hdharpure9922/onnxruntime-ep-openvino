@@ -122,6 +122,7 @@ class OpenVINOEpPluginFactory : public OrtEpFactory {
   static constexpr uint32_t vendor_id_{0x8086};  // Intel's PCI vendor ID
   static constexpr const char* ov_device_key_ = "ov_device";
   static constexpr const char* provider_name_ = OpenVINOEpPlugin::provider_name_;
+  static constexpr const char* ov_meta_device_key_ = "ov_meta_device";
   static constexpr const char* hardware_device_type_env_key_ = "ep.openvinoexecutionprovider.hardware_device_type";
 
   std::string MatchOvDevice(const Ort::ConstHardwareDevice& hw_device);

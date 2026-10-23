@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <onnxruntime/onnxruntime_cxx_api.h>
+#include <onnxruntime_cxx_api.h>
 
 ///////////////////////////////////////////////////////////////////////////
 enum class ort_execution_provider_t {
